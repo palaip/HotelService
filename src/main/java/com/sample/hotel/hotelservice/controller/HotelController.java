@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sample.hotel.hotelservice.pojo.Hotel;
 import com.sample.hotel.hotelservice.service.HotelService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/hotel")
+@Slf4j
 public class HotelController {
 
 	@Autowired
@@ -24,6 +27,7 @@ public class HotelController {
 
 	@GetMapping("/allhotels")
 	public ResponseEntity<List<Hotel>> getAllHotels() {
+		log.info("inside method all hotels");
 		List<Hotel> list = hotelService.getAllHotel();
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 
@@ -31,6 +35,8 @@ public class HotelController {
 
 	@GetMapping("/{hotelId}")
 	public ResponseEntity<Hotel> findhotelID(@PathVariable String hotelId) {
+		
+		log.info("inside method  findhotel byID");
 		System.out.println("hotel id " + hotelId);
 		Hotel hotel = hotelService.getHotelByID(hotelId);
 		return ResponseEntity.status(HttpStatus.OK).body(hotel);
